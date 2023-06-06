@@ -9,17 +9,7 @@ export const login=createAsyncThunk(
             const response = await axios.post(`https://ecommerce-tech-titans.herokuapp.com/api/v1/user/login`,user);
             console.log('response data:', response.data);
             localStorage.setItem('email',response.data.user.email);
-            if(response.data.message==='Please enter your OTP'){
-                console.log(response.data.message)
-                // alert("Proceed to verify otp page")
                 return response.data;
-            }
-            else{
-                console.log(response.data.message)
-                return response.data.message;
-
-            }
-
 
         } catch (error) {
             console.log('login error:', error.response.data.message);

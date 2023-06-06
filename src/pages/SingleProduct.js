@@ -1,10 +1,10 @@
-
 import { useEffect,useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {Link, useParams} from "react-router-dom";
 import { fetchProduct } from "../features/SingleProduct";
 import Navbar from "./navbar";
 import ReviewComponent from "./RevieProduct";
+import {Recommend} from "./Recommend";
 
 export function SingleProductView() {
     const { id } = useParams();
@@ -72,6 +72,7 @@ export function SingleProductView() {
 
 
             </div>
+            <Recommend />
         </div>
     );
 }

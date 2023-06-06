@@ -11,6 +11,7 @@ import {BuyerView} from "./pages/BuyerView";
 import {SingleProductView} from "./pages/SingleProduct";
 import SignupForm from "./pages/SignupPage";
 import {UsersHome} from "./pages/ViewUsers";
+import {Recommend} from "./pages/Recommend";
 
 
 
@@ -30,6 +31,7 @@ function App() {
                 <Route path="/products/:id" element={<SingleProductView/>} />
                <Route path="/signup" element={<SignupForm/>} />
               <Route path="/allusers" element={<UsersHome/>} />
+              <Route path="/recommend" element={<Recommend/>} />
                 <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </BrowserRouter>

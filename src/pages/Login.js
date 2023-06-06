@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useDispatch,useSelector} from 'react-redux';
 import { login} from '../features/loginSlice';
-// import OTPForm from "./OTPForm";
 import Navbar from "./navbar";
 import {useNavigate} from "react-router-dom";
 

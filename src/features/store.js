@@ -8,6 +8,7 @@ import CategoryReducer from './CategorySlice';
 import signupReducer from './SignupSlice';
 import AlluserSlice from './AllUsers';
 import productsReviewSlice from './ReviewSlice';
+import RecommendedProduct from "./RecomendSlice";
 
 
 const middlewares = [];
@@ -25,7 +26,8 @@ const store = configureStore({
         products: productsReducer,
         category: CategoryReducer,
         signup:signupReducer,
-        review:productsReviewSlice
+        review:productsReviewSlice,
+        recommended:RecommendedProduct,
     },
     middleware: [...middlewares, thunk],
 });
