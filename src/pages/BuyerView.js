@@ -1,9 +1,11 @@
-import { useEffect } from "react";
+import React, {useEffect, useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ViewProduct } from "../features/productSlice";
 import ProductLists from "./ViewProduct";
 import Navbar from "./navbar";
 import { useNavigate, useLocation } from "react-router-dom";
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export function BuyerView() {
     const dispatch = useDispatch();
@@ -13,7 +15,8 @@ export function BuyerView() {
     const navigate = useNavigate();
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
-    const page = Number(queryParams.get("page")) || 1; // Get the "page" query parameter, default to 1 if not present
+    const page = Number(queryParams.get("page")) || 1;
+    const [open, setOpen] = useState(true);// Get the "page" query parameter, default to 1 if not present
 
     useEffect(() => {
         dispatch(ViewProduct(page))
@@ -22,6 +25,20 @@ export function BuyerView() {
             })
             .catch((error) => console.log("ViewProduct error:", error));
     }, [dispatch, page]);
+
+    if (status === "loading....." || product === null) {
+        return (
+            <div>
+                <Backdrop
+                    sx={{ color: '#7A89E9', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                    open={open}
+                    onClick={() => {}}
+                >
+                    <CircularProgress color="inherit" />
+                </Backdrop>
+            </div>
+        );
+    }
 
     const handleNextPage = () => {
         if (currentPage < totalPages) {

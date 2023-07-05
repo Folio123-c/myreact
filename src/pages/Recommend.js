@@ -2,12 +2,16 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RecommendedProduct } from "../features/RecomendSlice";
 import RecommendedCard from "./RecommendedCard";
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
+import Button from '@mui/material/Button';
 
 export function Recommend() {
     const dispatch = useDispatch();
     const { recommended, status, error } = useSelector((state) => state.recommended);
     const itemsPerPage = 4;
     const [currentPage, setCurrentPage] = useState(1);
+    const [open, setOpen] = useState(true); // Set the initial state of 'open' to true
 
     useEffect(() => {
         dispatch(RecommendedProduct())
@@ -30,7 +34,17 @@ export function Recommend() {
     };
 
     if (status === "loading....." || recommended === null) {
-        return <div>Loading...</div>;
+        return (
+            <div>
+                <Backdrop
+                    sx={{ color: '#7A89E9', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                    open={open}
+                    onClick={() => {}}
+                >
+                    <CircularProgress color="inherit" />
+                </Backdrop>
+            </div>
+        );
     }
 
     const totalItems = recommended.products.length;
@@ -45,11 +59,32 @@ export function Recommend() {
     };
 
     const randomProduct = getRandomProduct();
+    const handleClose = () => {
+        setOpen(false);
+    };
+    const handleOpen = () => {
+        setOpen(true);
+    };
 
     return (
         <div>
             <div className="mt-1 decoration-0 p-0">
                 <div className="flex flex-col items-center space-y-2 sm:flex-row sm:items-center sm:space-y-0 sm:space-x-2">
+                    {status === "loading......." && (
+                        <div className="bg-white text-black p-2 font-extrabold">
+                            <div>
+                                Loading...
+                            {/*    <Button onChange={handleOpen}>Show backdrop</Button>*/}
+                            {/*    <Backdrop*/}
+                            {/*        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}*/}
+                            {/*        open={open}*/}
+                            {/*        onClick={handleClose}*/}
+                            {/*    >*/}
+                            {/*        <CircularProgress color="inherit" />*/}
+                            {/*    </Backdrop>*/}
+                            </div>
+                        </div>
+                    )}
                     {status === "failed" && (
                         <div className="bg-red-500 text-tatans p-2 font-extrabold py-2 px-4 focus:outline-none focus:shadow-outline">
                             {error}
@@ -60,7 +95,7 @@ export function Recommend() {
                     Recommended Products
                 </h1>
                 <div className="grid grid-cols-1 sm:grid-cols-5 gap-1 w-screen">
-                    <RecommendedCard product={randomProduct} key={randomProduct.id} />
+                    {randomProduct && <RecommendedCard product={randomProduct} key={randomProduct.id} />}
                     {paginatedProducts.length > 0 ? (
                         paginatedProducts.map((recommended) => (
                             <RecommendedCard product={recommended} key={recommended.id} />

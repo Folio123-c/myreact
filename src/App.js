@@ -12,6 +12,8 @@ import {SingleProductView} from "./pages/SingleProduct";
 import SignupForm from "./pages/SignupPage";
 import {UsersHome} from "./pages/ViewUsers";
 import {Recommend} from "./pages/Recommend";
+import LoginPage from "./pages/TestLogin";
+import MarksByTermAndMidterm from "./pages/StudentMarks";
 
 
 
@@ -19,7 +21,7 @@ function App() {
   return (
         <BrowserRouter>
           <Routes>
-                <Route path="/" element={<Homepage />} />
+                <Route path="/" element={<MarksByTermAndMidterm />} />
                 <Route path="/LoginForm" element={<LoginForm />} />
                 <Route path="/OTPForm" element={<OTPForm />} />
                 <Route path="/Addproduct" element={<AddProductForm />} />
